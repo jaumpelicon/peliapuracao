@@ -40,6 +40,7 @@ export interface Snapshot {
   eleitorado: { aptos: number; comparecimento: number; abstencao: number; pctComparecimento: number; pctAbstencao: number };
   votos: { total: number; validos: number; brancos: number; nulos: number; nominais?: number; legenda?: number };
   top5: CandidatoRank[];
+  candidatos: CandidatoRank[];
   totalCandidatos: number;
   desatualizado: boolean;
   hash: string;

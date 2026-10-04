@@ -1,6 +1,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
+  app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+  },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {

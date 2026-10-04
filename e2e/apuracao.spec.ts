@@ -17,7 +17,7 @@ test.describe('Página de apuração', () => {
     await page.goto('/?cargo=senador&uf=SP');
     await page.getByRole('button', { name: 'Tabela' }).click();
     await expect(page.locator('table')).toBeVisible();
-    await expect(page.locator('table caption')).toContainText('Top 5 candidatos por votos');
+    await expect(page.locator('table caption')).toContainText('Resultados da apuração');
   });
 
   test('exibe nomes reais de candidatos', async ({ page }) => {

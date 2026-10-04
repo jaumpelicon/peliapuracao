@@ -239,6 +239,7 @@ export function parseEa20(
       legenda: toNum(data.v.vl),
     },
     top5,
+    candidatos: todos,
     totalCandidatos,
     desatualizado: false,
     hash,
