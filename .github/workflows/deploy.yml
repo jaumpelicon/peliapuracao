@@ -44,6 +44,7 @@ jobs:
         env:
           TSE_TURNO: 1
           NUXT_APP_BASE_URL: /peliapuracao/
+          NUXT_PUBLIC_CORS_PROXY: "https://api.allorigins.win/raw?url="
         run: npm run generate
 
       - name: Upload artifact

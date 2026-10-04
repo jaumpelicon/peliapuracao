@@ -1,4 +1,4 @@
-import type { CargoKey, Abrangencia } from '~/shared/tse';
+import type { CargoKey, Abrangencia } from '~/shared/types';
 import { UFs } from '~/shared/tse';
 
 export function parseCargoUf(query: { cargo?: string; uf?: string }): { cargo: CargoKey; abrangencia: Abrangencia; key: string } | { error: string } {

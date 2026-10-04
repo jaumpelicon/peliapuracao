@@ -2,8 +2,7 @@
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parseEa20 } from '../server/tse/parser.ts';
-import type { CargoKey, Abrangencia } from '../shared/tse.ts';
-import type { TseMeta } from '../server/tse/types.ts';
+import type { CargoKey, Abrangencia, TseMeta } from '../shared/types.ts';
 
 const DATA_DIR = join(process.cwd(), 'public', 'data');
 

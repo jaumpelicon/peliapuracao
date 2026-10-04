@@ -1,6 +1,5 @@
-import type { CargoKey, Abrangencia } from '~/shared/tse';
+import type { CargoKey, Abrangencia, TseMeta } from './types';
 import { CARGOS, cargoCode } from '~/shared/tse';
-import type { TseMeta } from './types';
 
 const pad = (n: number | string, w: number) => String(n).padStart(w, '0');
 

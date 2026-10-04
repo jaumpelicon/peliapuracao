@@ -19,3 +19,24 @@ export function cargoCode(cargo: CargoKey, abrangencia?: Abrangencia): string {
   if (cargo === 'deputado-estadual' && abrangencia === 'DF') return '0008';
   return CARGOS[cargo].cd;
 }
+
+const pad = (n: number | string, w: number) => String(n).padStart(w, '0');
+
+export interface TseMetaMinimal {
+  baseUrl: string;
+  ambiente: string;
+  ciclo: string;
+  eleicaoFederal: string;
+  eleicaoEstadual: string;
+}
+
+export function urlResultado(meta: TseMetaMinimal, cargo: CargoKey, abrangencia: Abrangencia) {
+  const info = cargoCode(cargo, abrangencia);
+  const uf = abrangencia.toLowerCase();
+  const eleicao = CARGOS[cargo].eleicao === 'federal' ? meta.eleicaoFederal : meta.eleicaoEstadual;
+  return `${meta.baseUrl}/${meta.ambiente}/${meta.ciclo}/${eleicao}/dados/${uf}/${uf}-c${pad(info, 4)}-e${pad(eleicao, 6)}-u.json`;
+}
+
+export function urlConfigEleicoes(meta: TseMetaMinimal) {
+  return `${meta.baseUrl}/${meta.ambiente}/comum/config/ele-c.json`;
+}

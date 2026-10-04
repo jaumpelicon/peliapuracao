@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Snapshot } from '~/server/tse/types';
+import type { Snapshot } from '~/shared/types';
 
 const props = defineProps<{ snapshot: Snapshot }>();
 

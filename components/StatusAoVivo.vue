@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<{ atualizando: boolean; ultimaAtualizacao?: string; erro?: string | null }>();
+const props = defineProps<{ atualizando: boolean; ultimaAtualizacao?: number; erro?: string | null; modo?: 'live' | 'static' | null }>();
 </script>
 
 <template>
   <div class="status-ao-vivo" role="status" aria-live="polite">
-    <span class="bolinha" :class="{ pulso: atualizando }" aria-hidden="true" />
+    <span class="bolinha" :class="{ pulso: atualizando, live: modo === 'live', static: modo === 'static' }" aria-hidden="true" />
     <span class="texto">
       <template v-if="erro">
         <strong>Erro:</strong> {{ erro }}
@@ -13,7 +13,8 @@ const props = defineProps<{ atualizando: boolean; ultimaAtualizacao?: string; er
         Atualizando dados…
       </template>
       <template v-else-if="ultimaAtualizacao">
-        Ao vivo · atualizado {{ new Date(ultimaAtualizacao).toLocaleTimeString('pt-BR') }}
+        {{ modo === 'live' ? 'Ao vivo' : 'Atualização periódica' }}
+        · {{ new Date(ultimaAtualizacao).toLocaleTimeString('pt-BR') }}
       </template>
       <template v-else>
         Ao vivo
@@ -37,6 +38,8 @@ const props = defineProps<{ atualizando: boolean; ultimaAtualizacao?: string; er
   border-radius: 50%;
   background: var(--success);
 }
+.bolinha.live { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+.bolinha.static { background: var(--warning); }
 .bolinha.pulso {
   animation: pulso 1s infinite;
 }

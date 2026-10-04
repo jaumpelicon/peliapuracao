@@ -1,4 +1,4 @@
-import type { CargoKey, Abrangencia } from '~/shared/tse';
+import type { CargoKey, Abrangencia, Uf } from '~/shared/types';
 import { UFs } from '~/shared/tse';
 import type { TseMeta } from '../tse/types';
 

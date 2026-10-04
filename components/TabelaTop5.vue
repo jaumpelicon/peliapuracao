@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Snapshot, CandidatoRank } from '~/server/tse/types';
+import type { Snapshot, CandidatoRank } from '~/shared/types';
 
 const props = defineProps<{ snapshot: Snapshot; maxInicial?: number }>();
 

@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       tseTurno: Number(process.env.TSE_TURNO || 1),
+      corsProxy: process.env.NUXT_PUBLIC_CORS_PROXY || '',
     },
     tseEnv: 'oficial',
     tseBaseUrl: process.env.TSE_BASE_URL || 'https://resultados.tse.jus.br',

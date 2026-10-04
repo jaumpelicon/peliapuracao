@@ -4,7 +4,7 @@ import { CanvasRenderer } from 'echarts/renderers';
 import { BarChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent } from 'echarts/components';
 import VChart from 'vue-echarts';
-import type { Snapshot } from '~/server/tse/types';
+import type { Snapshot } from '~/shared/types';
 
 use([CanvasRenderer, BarChart, GridComponent, TooltipComponent]);
 
