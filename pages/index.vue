@@ -18,6 +18,9 @@ useSeoMeta({
 });
 
 const verComo = ref<'grafico' | 'tabela'>('tabela');
+
+const base = String(useRuntimeConfig().app?.baseURL || '/').replace(/\/$/, '');
+const headerImg = `${base}/header.png`;
 </script>
 
 <template>
@@ -82,7 +85,7 @@ const verComo = ref<'grafico' | 'tabela'>('tabela');
     </main>
 
     <footer class="rodape">
-      <img src="/header.png" alt="Pelicodas" class="header-rodape" />
+      <img :src="headerImg" alt="Pelicodas" class="header-rodape" />
       <p>Fonte: TSE — resultados.tse.jus.br · Atualizado automaticamente.</p>
     </footer>
   </div>

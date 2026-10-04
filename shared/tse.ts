@@ -22,21 +22,31 @@ export function cargoCode(cargo: CargoKey, abrangencia?: Abrangencia): string {
 
 const pad = (n: number | string, w: number) => String(n).padStart(w, '0');
 
+export const TSE_BASE_DEFAULT = 'https://resultados.tse.jus.br';
+
 export interface TseMetaMinimal {
-  baseUrl: string;
-  ambiente: string;
+  baseUrl?: string | null;
+  ambiente?: string | null;
   ciclo: string;
   eleicaoFederal: string;
   eleicaoEstadual: string;
+}
+
+function baseOf(meta: TseMetaMinimal) {
+  return meta.baseUrl || TSE_BASE_DEFAULT;
+}
+
+function ambienteOf(meta: TseMetaMinimal) {
+  return meta.ambiente || 'oficial';
 }
 
 export function urlResultado(meta: TseMetaMinimal, cargo: CargoKey, abrangencia: Abrangencia) {
   const info = cargoCode(cargo, abrangencia);
   const uf = abrangencia.toLowerCase();
   const eleicao = CARGOS[cargo].eleicao === 'federal' ? meta.eleicaoFederal : meta.eleicaoEstadual;
-  return `${meta.baseUrl}/${meta.ambiente}/${meta.ciclo}/${eleicao}/dados/${uf}/${uf}-c${pad(info, 4)}-e${pad(eleicao, 6)}-u.json`;
+  return `${baseOf(meta)}/${ambienteOf(meta)}/${meta.ciclo}/${eleicao}/dados/${uf}/${uf}-c${pad(info, 4)}-e${pad(eleicao, 6)}-u.json`;
 }
 
 export function urlConfigEleicoes(meta: TseMetaMinimal) {
-  return `${meta.baseUrl}/${meta.ambiente}/comum/config/ele-c.json`;
+  return `${baseOf(meta)}/${ambienteOf(meta)}/comum/config/ele-c.json`;
 }

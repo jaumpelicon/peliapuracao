@@ -30,6 +30,8 @@ async function main() {
 
   writeFileSync(join(DATA_DIR, 'meta.json'), JSON.stringify({
     status: 'ok',
+    baseUrl: meta.baseUrl,
+    ambienteComum: meta.ambienteComum,
     ambiente: meta.ambiente,
     ciclo: meta.ciclo,
     pleito: meta.pleito,
