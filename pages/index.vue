@@ -2,7 +2,7 @@
 import { CARGOS } from '~/shared/tse';
 import type { CargoKey } from '~/shared/tse';
 
-const { cargo, uf, snapshot, pending, error, ultimaAtualizacao } = useApuracao();
+const { cargo, uf, snapshot, pending, error, ultimaAtualizacao, atualizar } = useApuracao();
 
 const cargoAtual = computed(() => ({ label: CARGOS[cargo.value as CargoKey]?.label ?? cargo.value }));
 
@@ -30,7 +30,20 @@ const verComo = ref<'grafico' | 'tabela'>('grafico');
           <p class="sub">Resultados oficiais do Tribunal Superior Eleitoral</p>
         </div>
       </div>
-      <StatusAoVivo :atualizando="pending" :ultima-atualizacao="ultimaAtualizacao" :erro="error" />
+      <div class="acoes-topo">
+        <button
+          class="btn-atualizar"
+          aria-label="Atualizar dados"
+          title="Atualizar dados"
+          :disabled="pending"
+          @click="atualizar"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/>
+          </svg>
+        </button>
+        <StatusAoVivo :atualizando="pending" :ultima-atualizacao="ultimaAtualizacao" :erro="error" />
+      </div>
     </header>
 
     <main class="container">
@@ -117,6 +130,39 @@ h1 {
   margin: 0;
   font-size: 0.8125rem;
   color: var(--muted);
+}
+.acoes-topo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.btn-atualizar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.btn-atualizar:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-atualizar:active {
+  transform: rotate(180deg);
+}
+.btn-atualizar:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.btn-atualizar svg {
+  width: 1.1rem;
+  height: 1.1rem;
 }
 .container {
   flex: 1;

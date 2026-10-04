@@ -31,10 +31,15 @@ export function useApuracao() {
   const config = useRuntimeConfig();
   const turno = Number(config.public.tseTurno || 1) as 1 | 2;
 
-  const { data: meta, error: metaError } = useFetch<Meta>('/data/meta.json', { server: false });
+  const cacheBuster = ref(Date.now());
+
+  const { data: meta, error: metaError, refresh: refreshMeta } = useFetch<Meta>(
+    () => `/data/meta.json?_=${cacheBuster.value}`,
+    { server: false, default: () => undefined },
+  );
 
   const { data: snapshot, pending, error, refresh } = useFetch<Snapshot>(
-    () => `/data/${cargo.value}-${abrangencia.value}-${turno}.json`,
+    () => `/data/${cargo.value}-${abrangencia.value}-${turno}.json?_=${cacheBuster.value}`,
     { server: false, watch: [cargo, uf], default: () => undefined },
   );
 
@@ -47,11 +52,22 @@ export function useApuracao() {
 
   let interval: ReturnType<typeof setInterval> | null = null;
 
+  function atualizar() {
+    cacheBuster.value = Date.now();
+    ultimaAtualizacao.value = Date.now();
+    nextTick(() => {
+      refreshMeta();
+      refresh();
+    });
+  }
+
   onMounted(() => {
     interval = setInterval(() => {
+      cacheBuster.value = Date.now();
       ultimaAtualizacao.value = Date.now();
+      refreshMeta();
       refresh();
-    }, 10000);
+    }, 60000);
   });
 
   onUnmounted(() => {
@@ -78,6 +94,7 @@ export function useApuracao() {
     pending,
     error,
     refresh,
+    atualizar,
     ultimaAtualizacao,
     desatualizadoSegundos,
     formatNum,
