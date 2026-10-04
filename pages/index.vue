@@ -17,7 +17,7 @@ useSeoMeta({
   description: 'Resultados da apuração das Eleições 2026 com dados oficiais do TSE.',
 });
 
-const verComo = ref<'grafico' | 'tabela'>('grafico');
+const verComo = ref<'grafico' | 'tabela'>('tabela');
 </script>
 
 <template>
@@ -54,12 +54,16 @@ const verComo = ref<'grafico' | 'tabela'>('grafico');
 
       <template v-if="snapshot">
         <PainelAndamento :snapshot="snapshot" />
+        <ResumoVotos :snapshot="snapshot" />
         <section class="conteudo">
           <div class="titulo-secao">
-            <h2>{{ cargoAtual?.label }} · {{ uf }}</h2>
+            <div>
+              <h2>{{ cargoAtual?.label }} · {{ uf }}</h2>
+              <p class="subsecao">Apuração das Eleições 2026 · {{ snapshot.turno }}º turno</p>
+            </div>
             <div class="toggle" role="group" aria-label="Visualização">
+              <button :class="{ active: verComo === 'tabela' }" @click="verComo = 'tabela'">Lista</button>
               <button :class="{ active: verComo === 'grafico' }" @click="verComo = 'grafico'">Gráfico</button>
-              <button :class="{ active: verComo === 'tabela' }" @click="verComo = 'tabela'">Tabela</button>
             </div>
           </div>
           <GraficoTop5 v-if="verComo === 'grafico'" :snapshot="snapshot" />
@@ -196,6 +200,11 @@ h1 {
 .titulo-secao h2 {
   margin: 0;
   font-size: 1.25rem;
+}
+.subsecao {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
 }
 .toggle {
   display: inline-flex;

@@ -24,20 +24,15 @@ function fmt(n?: number | null) {
 
 <template>
   <div class="painel" role="status" aria-live="polite">
-    <div class="card resumo">
+    <div class="big resumo">
       <div class="rotulo">Seções apuradas</div>
       <div class="principal">{{ pct(snapshot.secoes.pct) }}</div>
       <div class="sub">{{ fmt(snapshot.secoes.totalizadas) }} de {{ fmt(snapshot.secoes.total) }} seções</div>
       <div class="barra"><div class="preenchimento" :style="{ width: `${snapshot.secoes.pct ?? 0}%` }" /></div>
     </div>
-    <div class="card resumo">
-      <div class="rotulo">Total de votos apurados</div>
-      <div class="principal">{{ fmt(snapshot.votos.total) }}</div>
-      <div class="sub">Última atualização: {{ new Date(snapshot.buscadoEm).toLocaleTimeString('pt-BR') }}</div>
-    </div>
-    <div class="card status" :class="info.cor">
+    <div class="status-box" :class="info.cor">
       <div class="rotulo">Status</div>
-      <div class="principal">{{ info.label }}</div>
+      <div class="status-principal">{{ info.label }}</div>
       <div class="sub">{{ snapshot.turno }}º turno · {{ snapshot.totalCandidatos }} candidatos</div>
     </div>
   </div>
@@ -46,30 +41,30 @@ function fmt(n?: number | null) {
 <style scoped>
 .painel {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 2fr 1fr;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
-.card {
+.big, .status-box {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.125rem;
+  padding: 1.25rem;
   box-shadow: var(--shadow);
 }
 .rotulo {
-  font-size: 0.8125rem;
-  color: var(--muted);
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  color: var(--muted);
   font-weight: 600;
   margin-bottom: 0.375rem;
 }
 .principal {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: var(--fg);
-  line-height: 1.2;
+  line-height: 1.1;
   font-variant-numeric: tabular-nums;
 }
 .sub {
@@ -78,10 +73,10 @@ function fmt(n?: number | null) {
   margin-top: 0.25rem;
 }
 .barra {
-  height: 0.5rem;
+  height: 0.625rem;
   background: var(--bg);
   border-radius: 999px;
-  margin-top: 0.875rem;
+  margin-top: 1rem;
   overflow: hidden;
 }
 .preenchimento {
@@ -90,9 +85,17 @@ function fmt(n?: number | null) {
   border-radius: 999px;
   transition: width 0.6s ease;
 }
-.status .principal { color: var(--fg); }
-.status.sucesso .principal { color: var(--success); }
-.status.atencao .principal { color: var(--warning); }
-.status.aviso .principal { color: var(--accent); }
-.status.neutro .principal { color: var(--muted); }
+.status-principal {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.status-box.sucesso .status-principal { color: var(--success); }
+.status-box.atencao .status-principal { color: var(--warning); }
+.status-box.aviso .status-principal { color: var(--accent); }
+.status-box.neutro .status-principal { color: var(--muted); }
+@media (max-width: 640px) {
+  .painel { grid-template-columns: 1fr; }
+  .principal { font-size: 2rem; }
+}
 </style>
