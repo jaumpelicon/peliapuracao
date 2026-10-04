@@ -13,7 +13,7 @@ watch(cargo, (novo) => {
 });
 
 useSeoMeta({
-  title: () => `Apuração Eleições 2026 · ${cargoAtual.value?.label || 'Presidente'}`,
+  title: () => `Peliapuração · ${cargoAtual.value?.label || 'Presidente'}`,
   description: 'Resultados da apuração das Eleições 2026 com dados oficiais do TSE.',
 });
 
@@ -26,7 +26,7 @@ const verComo = ref<'grafico' | 'tabela'>('grafico');
       <div class="brand">
         <div class="escudo" aria-hidden="true">BR</div>
         <div>
-          <h1>Apuração das Eleições 2026</h1>
+          <h1>Peliapuração</h1>
           <p class="sub">Resultados oficiais do Tribunal Superior Eleitoral</p>
         </div>
       </div>
@@ -65,7 +65,8 @@ const verComo = ref<'grafico' | 'tabela'>('grafico');
     </main>
 
     <footer class="rodape">
-      Fonte: TSE — resultados.tse.jus.br · Atualizado automaticamente.
+      <img src="/header.png" alt="Pelicodas" class="header-rodape" />
+      <p>Fonte: TSE — resultados.tse.jus.br · Atualizado automaticamente.</p>
     </footer>
   </div>
 </template>
@@ -202,6 +203,12 @@ h1 {
   color: var(--muted);
   font-size: 0.8125rem;
   border-top: 1px solid var(--border);
+}
+.header-rodape {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
 }
 @media (max-width: 640px) {
   .topo { flex-direction: column; align-items: flex-start; }

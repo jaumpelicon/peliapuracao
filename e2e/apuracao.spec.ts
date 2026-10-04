@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Página de apuração', () => {
   test('carrega Presidente + Brasil por padrão', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('h1')).toContainText('Apuração das Eleições 2026');
+    await expect(page.locator('h1')).toContainText('Peliapuração');
     await expect(page.locator('button[aria-selected="true"]')).toContainText('Presidente');
   });
 
